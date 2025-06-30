@@ -72,7 +72,7 @@ public class IntermediaryDownloader implements IMappingDownloader {
                 System.out.printf(t.toString());
             }
         } catch (Throwable e) {
-            System.out.printf(t.toString());
+            System.out.printf(e.toString());
         }
         return map;
     }
