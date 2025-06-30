@@ -51,3 +51,4 @@ shadowJar {
 }
 
 build.dependsOn shadowJar
+distZip.dependsOn shadowJar
