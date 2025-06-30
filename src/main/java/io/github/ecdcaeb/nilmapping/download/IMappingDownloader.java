@@ -2,6 +2,7 @@ package io.github.ecdcaeb.nilmapping.download;
 
 import com.google.gson.JsonObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -34,23 +35,30 @@ public interface IMappingDownloader {
         HttpURLConnection connection = (HttpURLConnection) fileUrl.openConnection();
 
         try {
-            // 设置请求头
             connection.setRequestProperty("User-Agent", "Mozilla/5.0");
             connection.setRequestProperty("Accept", "*/*");
-
-            // 检查响应状态
+            
             int responseCode = connection.getResponseCode();
             if (responseCode != HttpURLConnection.HTTP_OK) {
                 throw new IOException("Server error: " + responseCode);
             }
-
-            // 读取文件内容到字节数组
+            
             try (InputStream in = connection.getInputStream()) {
-                return in.readAllBytes();
+                return readAll(in);
             }
 
         } finally {
             connection.disconnect();
         }
+    }
+    
+    static byte[] readAll(InputStream in) throws IOException {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        int nRead;
+        byte[] data = new byte[4096];
+        while ((nRead = in.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, nRead);
+        }
+        return buffer.toByteArray();
     }
 }
