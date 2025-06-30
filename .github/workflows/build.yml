@@ -41,4 +41,4 @@ jobs:
             with:
               name: mapping
               path: 
-                run
+                mapping.json
