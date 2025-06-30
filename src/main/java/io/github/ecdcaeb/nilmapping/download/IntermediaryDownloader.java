@@ -28,7 +28,9 @@ public class IntermediaryDownloader implements IMappingDownloader {
     public Map<String, JsonObject> download() {
         HashMap<String, JsonObject> map = new HashMap<>();
         try {
+            System.out.printf("Downloading mapping:" + this.url);
             try (ZipInputStream zis = new ZipInputStream(new ByteArrayInputStream(IMappingDownloader.url2bytes(this.url)))) {
+                System.out.printf("Downloaded mapping:" + this.url);
                 ZipEntry zipEntry;
 
                 while ((zipEntry = zis.getNextEntry()) != null) {
