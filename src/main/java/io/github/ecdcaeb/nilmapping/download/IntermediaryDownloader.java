@@ -34,6 +34,7 @@ public class IntermediaryDownloader implements IMappingDownloader {
                 while ((zipEntry = zis.getNextEntry()) != null) {
                     if (isValidMappingEntry(zipEntry)) {
                         String version = extractVersion(zipEntry.getName());
+                        System.out.printf("Find mapping:" + version);
                         byte[] data = getFromEntry(zis);
                         MemoryMappingTree memoryMappingTree = new MemoryMappingTree();
                         MappingReader.read(new InputStreamReader(new ByteArrayInputStream(data)), MappingFormat.TINY_2_FILE, memoryMappingTree);
