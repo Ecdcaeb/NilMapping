@@ -40,6 +40,12 @@ public interface IMappingDownloader {
             
             int responseCode = connection.getResponseCode();
             if (responseCode != HttpURLConnection.HTTP_OK) {
+                try (InputStream errorStream = connection.getErrorStream()) {
+                    if (errorStream != null) {
+                        String errorMessage = new String(readAll(errorStream));
+                        throw new IOException("Server error " + responseCode + ": " + errorMessage);
+                    }
+                }
                 throw new IOException("Server error: " + responseCode);
             }
             
@@ -51,14 +57,16 @@ public interface IMappingDownloader {
             connection.disconnect();
         }
     }
-    
-    static byte[] readAll(InputStream in) throws IOException {
+
+    static byte[] readAll(InputStream input) throws IOException {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         int nRead;
-        byte[] data = new byte[4096];
-        while ((nRead = in.read(data, 0, data.length)) != -1) {
+        byte[] data = new byte[8192];
+        
+        while ((nRead = input.read(data, 0, data.length)) != -1) {
             buffer.write(data, 0, nRead);
         }
+        
         return buffer.toByteArray();
     }
 }

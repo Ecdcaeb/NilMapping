@@ -68,9 +68,11 @@ public class IntermediaryDownloader implements IMappingDownloader {
                     }
                     zis.closeEntry();
                 }
+            } catch (Throwable t) {
+                System.out.printf(t.toString());
             }
-        } catch (IOException | URISyntaxException e) {
-            throw new RuntimeException(e);
+        } catch (Throwable e) {
+            System.out.printf(t.toString());
         }
         return map;
     }
