@@ -1,0 +1,56 @@
+import java.text.SimpleDateFormat
+
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'idea'
+}
+
+group 'cn.enaium'
+version project.version
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(8)
+
+application {
+    mainClass = 'com.example.MappingDownloader'
+}
+
+jar {
+
+    manifest.attributes(
+            'Manifest-Version': 1.0,
+            'Main-Class': 'io.github.ecdcaeb.nilmapping.download.DownloadHandler',
+            "Implementation-Title": "${project.name}",
+            "Implementation-Version": "${project.version}",
+            "Implementation-Vendor": "${project.group}",
+            "Implementation-Timestamp": new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
+            "Premain-Class": "cn.enaium.joe.Agent",
+            "Agent-Class": "cn.enaium.joe.Agent",
+            "Can-Redefine-Classes": true,
+            "Can-Retransform-Classes": true
+    )
+}
+
+new File(System.getProperty("user.dir"), "run").mkdir()
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://maven.quiltmc.org/repository/release' }
+    maven { url 'https://maven.cleanroommc.com'}
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.11.0'
+    implementation 'net.fabricmc:mapping-io:0.7.1'
+}
+
+shadowJar {
+    dependencies {
+        include(dependency('com.google.code.gson:gson'))
+        include(dependency('com.github.FabricMC:mapping-io'))
+    }
+    archiveClassifier.set('')
+}
+
+build.dependsOn shadowJar

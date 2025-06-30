@@ -1,0 +1,39 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will build a package using Gradle and then publish it to GitHub packages when a release is created
+# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#Publishing-using-gradle
+
+name: Build and Release Installer
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and Upload Artifact
+    runs-on: ubuntu-latest
+
+    steps:
+          - name: Checkout Repository
+            uses: actions/checkout@v4.1.4
+          - name: Grant Execute Permission for gradlew
+            run: chmod +x ./gradlew
+          - name: Set up JDK 21
+            uses: actions/setup-java@v4.2.1
+            with:
+              java-version: '21'
+              distribution: 'temurin'
+
+          - name: Build
+            run: ./gradlew build
+          - name: run
+            run: ./gradlew build
+          - name: Upload Build Artifacts
+            uses: actions/upload-artifact@v4.3.3
+            with:
+              name: result
+              path: 
+                - build/libs
+                - run
