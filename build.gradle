@@ -52,3 +52,5 @@ shadowJar {
 
 build.dependsOn shadowJar
 distZip.dependsOn shadowJar
+distTar.dependsOn shadowJar
+startScripts.dependsOn shadowJar
