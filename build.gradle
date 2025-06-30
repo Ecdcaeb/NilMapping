@@ -7,7 +7,7 @@ plugins {
     id 'application'
 }
 
-group 'cn.enaium'
+group 'io.github.ecdcaeb'
 version project.version
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8)
@@ -24,11 +24,7 @@ jar {
             "Implementation-Title": "${project.name}",
             "Implementation-Version": "${project.version}",
             "Implementation-Vendor": "${project.group}",
-            "Implementation-Timestamp": new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
-            "Premain-Class": "cn.enaium.joe.Agent",
-            "Agent-Class": "cn.enaium.joe.Agent",
-            "Can-Redefine-Classes": true,
-            "Can-Retransform-Classes": true
+            "Implementation-Timestamp": new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())
     )
 }
 
