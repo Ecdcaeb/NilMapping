@@ -29,11 +29,16 @@ jobs:
           - name: Build
             run: ./gradlew build
           - name: run
-            run: ./gradlew build
+            run: ./gradlew run
           - name: Upload Build Artifacts
             uses: actions/upload-artifact@v4.3.3
             with:
-              name: result
+              name: program
               path: 
                 build/libs
+          - name: Upload Build Artifacts Mapping
+            uses: actions/upload-artifact@v4.3.3
+            with:
+              name: mapping
+              path: 
                 run
