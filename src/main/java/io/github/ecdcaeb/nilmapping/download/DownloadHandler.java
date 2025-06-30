@@ -1,7 +1,6 @@
 package io.github.ecdcaeb.nilmapping.download;
 
 import com.google.gson.JsonObject;
-import org.junit.jupiter.api.Test;
 
 import java.io.BufferedWriter;
 import java.io.File;
