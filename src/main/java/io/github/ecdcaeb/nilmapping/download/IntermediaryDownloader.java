@@ -28,15 +28,16 @@ public class IntermediaryDownloader implements IMappingDownloader {
     public Map<String, JsonObject> download() {
         HashMap<String, JsonObject> map = new HashMap<>();
         try {
-            System.out.printf("Downloading mapping:" + this.url);
+            System.out.println("Downloading mapping:" + this.url);
             try (ZipInputStream zis = new ZipInputStream(new ByteArrayInputStream(IMappingDownloader.url2bytes(this.url)))) {
-                System.out.printf("Downloaded mapping:" + this.url);
+                System.out.println("Downloaded mapping:" + this.url);
                 ZipEntry zipEntry;
 
                 while ((zipEntry = zis.getNextEntry()) != null) {
+                    System.out.println("entry:" + zipEntry.getName());
                     if (isValidMappingEntry(zipEntry)) {
                         String version = extractVersion(zipEntry.getName());
-                        System.out.printf("Find mapping:" + version);
+                        System.out.println("Find mapping:" + version);
                         byte[] data = getFromEntry(zis);
                         MemoryMappingTree memoryMappingTree = new MemoryMappingTree();
                         MappingReader.read(new InputStreamReader(new ByteArrayInputStream(data)), MappingFormat.TINY_2_FILE, memoryMappingTree);
