@@ -23,7 +23,6 @@ public class DownloadHandler {
             jsonObject.add(entry.getKey(), entry.getValue());
         }
         File file = new File("mapping.json");
-        file.mkdir();
         try(BufferedWriter writer = Files.newBufferedWriter(file.toPath())){
             writer.append(jsonObject.toString());
         } catch (IOException e) {
