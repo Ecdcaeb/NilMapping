@@ -35,5 +35,5 @@ jobs:
             with:
               name: result
               path: 
-                - build/libs
-                - run
+                build/libs
+                run
