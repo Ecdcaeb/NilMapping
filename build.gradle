@@ -13,7 +13,7 @@ version "1.0"
 java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
 application {
-    mainClass = 'com.example.MappingDownloader'
+    mainClass = 'io.github.ecdcaeb.nilmapping.download.DownloadHandler'
 }
 
 jar {
