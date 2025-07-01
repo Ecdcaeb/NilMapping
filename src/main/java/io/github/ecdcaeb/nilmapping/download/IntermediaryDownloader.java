@@ -114,14 +114,13 @@ public class IntermediaryDownloader implements IMappingDownloader {
     }
 
     private static boolean isValidMappingEntry(ZipEntry entry) {
-        return entry.getName().startsWith("mappings/")
-                && entry.getName().lastIndexOf('/') == 8
+        return entry.getName().indexOf("mappings/") > 0
                 && !entry.isDirectory()
                 && entry.getName().endsWith(".tiny");
     }
 
     private static String extractVersion(String fileName) {
-        String mappingName = fileName.substring(9); // 去掉"mappings/"前缀
+        String mappingName = fileName.substring(fileName.indexOf("mappings/") + 9);
         return mappingName.substring(0, mappingName.lastIndexOf('.'));
     }
 
