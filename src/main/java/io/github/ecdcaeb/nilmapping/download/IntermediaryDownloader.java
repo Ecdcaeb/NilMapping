@@ -44,7 +44,7 @@ public class IntermediaryDownloader implements IMappingDownloader {
                         } catch (Throwable t) {
                             try {
                                 MappingReader.read(new InputStreamReader(new ByteArrayInputStream(data)), MappingFormat.TINY_FILE, memoryMappingTree);
-                            } catch (Throwable t) {
+                            } catch (Throwable t2) {
                                 System.out.println("SKIP bad mapping:" + version);
                                 continue;
                             }
