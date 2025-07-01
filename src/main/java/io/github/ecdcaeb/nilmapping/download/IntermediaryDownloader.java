@@ -39,7 +39,17 @@ public class IntermediaryDownloader implements IMappingDownloader {
                         System.out.println("Find mapping:" + version);
                         byte[] data = getFromEntry(zis);
                         MemoryMappingTree memoryMappingTree = new MemoryMappingTree();
-                        MappingReader.read(new InputStreamReader(new ByteArrayInputStream(data)), MappingFormat.TINY_2_FILE, memoryMappingTree);
+                        try{
+                            MappingReader.read(new InputStreamReader(new ByteArrayInputStream(data)), MappingFormat.TINY_2_FILE, memoryMappingTree);
+                        } catch (Throwable t) {
+                            try {
+                                MappingReader.read(new InputStreamReader(new ByteArrayInputStream(data)), MappingFormat.TINY_FILE, memoryMappingTree);
+                            } catch (Throwable t) {
+                                System.out.println("SKIP bad mapping:" + version);
+                                continue;
+                            }
+                        }
+
                         String dst = memoryMappingTree.getDstNamespaces().get(0);
                         HashMap<String, JsonObject> classes = new HashMap<>();
                         HashMap<String, JsonObject> childs = new HashMap<>();
