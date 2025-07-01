@@ -34,7 +34,6 @@ public class IntermediaryDownloader implements IMappingDownloader {
                 ZipEntry zipEntry;
 
                 while ((zipEntry = zis.getNextEntry()) != null) {
-                    System.out.println("entry:" + zipEntry.getName());
                     if (isValidMappingEntry(zipEntry)) {
                         String version = extractVersion(zipEntry.getName());
                         System.out.println("Find mapping:" + version);
