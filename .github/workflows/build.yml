@@ -29,7 +29,7 @@ jobs:
           - name: Build
             run: ./gradlew build
           - name: run
-            run: ./gradlew run
+            run: ./gradlew run -XX:-UseGCOverheadLimit
           - name: Upload Build Artifacts
             uses: actions/upload-artifact@v4.3.3
             with:
